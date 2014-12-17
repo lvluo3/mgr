@@ -1,0 +1,21 @@
+git init
+
+##################local####################
+git add <filename>
+git add *
+git commit -m "代码提交信息"
+
+###rollback###
+git log
+git reset hard HEAD~1,2,3
+
+#################remote###################
+git remote add origin https://github.com/lvluo3/mgr.git
+git push origin master
+
+###rollback###
+git fetch origin
+git reset --hard origin/master
+
+
+
