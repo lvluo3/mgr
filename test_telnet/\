@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <sys/types.h>          /* See NOTES */
+#include <sys/socket.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <errno.h>
+#include <sys/epoll.h>
+#include <arpa/inet.h>
+
+
+int main()
+{
+		int    fd;
+		struct sockaddr_in  connaddr;
+		char    buf[512];
+		int ret;
+		socklen_t   opt_len = 0;
+
+		fd = socket(AF_INET, SOCK_STREAM, 0);
+
+
+
+		memset(&connaddr , 0 , sizeof(connaddr));
+		connaddr.sin_family      = AF_INET;
+		connaddr.sin_addr.s_addr = inet_addr("192.168.200.30");//htonl(dspip);
+		connaddr.sin_port        = htons(23);
+
+
+		ret = connect(fd , (struct sockaddr*)&connaddr , sizeof(connaddr));
+		if(-1 == ret)
+		{
+			perror("connect ");
+			close(fd);
+			return -1;
+		}
+		send(fd , "\r\n" , 2 , 0);
+		while(1)
+		{
+			
+			recv(fd , buf , 100 , 0);
+			printf(buf);
+			if(0 == memcmp(buf , "(none) login:\r\n", 13))
+			{
+				char root[16] = {'r','o','o','t',0,0,0,0,0};
+
+
+				printf("111111111111111111111111111111111111111111111\n");
+//				root[4] = 0x20;
+				send(fd , root , 9999 , 0);
+				continue;
+			}
+
+			if(0 == memcmp(buf , "passward:\r\n" ,9 ))
+			{
+				char wisdom[16] = "wisdom";
+
+
+				printf("222222222222222222222222222222222222222222222222\n");
+				wisdom[6] = 0x20;
+				send(fd , wisdom , 7 , 0);
+				continue;
+			}
+
+			
+			//send(fd, "reboot\r\n" , 9 , 0);
+			//printf("3333333333333333333333333333333333333333333333333\n");
+
+			
+		}
+		
+		return 0;
+}
