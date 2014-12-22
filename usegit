@@ -3,7 +3,7 @@ git init
 ##################local####################
 git add <filename>
 git add *
-git commit -m "代码提交信息"
+git commit -m "msg for this"
 
 ###rollback###
 git log
@@ -18,4 +18,7 @@ git fetch origin
 git reset --hard origin/master
 
 
+####create branch####
+git branch xxx
+git checkout	xxx
 
