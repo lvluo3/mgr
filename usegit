@@ -22,3 +22,5 @@ git reset --hard origin/master
 git branch xxx
 git checkout	xxx
 
+###look remote branch###
+git branch -a
