@@ -182,7 +182,7 @@ int hpvc_client_init()
 
 		if(-1 == connect(hpvcfd , (SA *) &servaddr, sizeof(servaddr)))
 		{
-				perror("conncet hpvcmgr error:");
+				//perror("conncet hpvcmgr error:");
 				close(hpvcfd);
 				hpvcfd = -1;
 				return -1;

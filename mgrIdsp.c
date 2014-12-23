@@ -43,7 +43,7 @@ static void dg_echo(int sockfd, SA *pcliaddr)//, socklen_t clilen)
 						//printf("-------------------------------------dspmgr_reset_dsptimer dspip : 0x%x\n",dspip);
 
 
-						if(-1 == dspmgr_isexist_dsp(dspip))
+						if(-1 == dspmgr_isexist_dsp(dspip) && -1 == dsp_isinkeep(dspip))
 						{
 								int ret = dspmgr_back_dsp(dspip);
 								printf("dspmgr_isexist_dsp ip : 0x%x , back ret : %d\n" , dspip , ret);
@@ -161,7 +161,7 @@ int dspmgr_read_ini()
 						dspmgr_back_dsp(i);
 						alldsp[k++]=i;
 						//dspmgr_addip4send_dspkeepalive(i);
-						//dspmgr_reset_dsptimer(0xffff , i ,5 );	
+						dspmgr_reset_dsptimer(0xffff , i ,5);	
 				}
 
 				section[14]++;

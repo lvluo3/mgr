@@ -53,6 +53,19 @@ static unsigned int av_find_dspip(int avfd)
 		return 0;
 }
 
+int dsp_isinkeep(unsigned int dspip)
+{
+	int i;
+	for(i=0 ; i < 128 ; i++ )
+	{
+		if (dspip_keeper[i] == dspip)
+		{
+			//printf("dsp is in keeper\n");
+			return 0;
+		}
+	}
+	return -1;
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 #define MAX_EPOLL_EVENTS 64
 static int efd;
