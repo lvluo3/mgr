@@ -83,7 +83,7 @@ static void show_list()
 		struct node_t * p = list.head;
 		while(NULL != p)
 		{
-				fprintf(stderr , "p : %p , dspip : %p , next : %p \n", p , p->dspip , p->next);
+				fprintf(stderr , "p : 0x%.8x , dspip : 0x%.8x , next : 0x%.8x \n", p , p->dspip , p->next);
 				p = p->next;
 		}
 }
@@ -104,13 +104,13 @@ int dspmgr_back_dsp(unsigned int dspip)
 
 		if(list.size <= 0)
 		{
-				printf("back , list.size %d <= 0 , head %p , tail %p\n",list.size , list.head , list.tail);
+				printf("back , list.size %d <= 0 , head 0x%x , tail 0x%x\n",list.size , list.head , list.tail);
 				list.head = p;
 				list.tail = p;	
 		}
 		else
 		{
-				printf("back , list.size %d > 0 , tail %p , p %p\n",list.size , list.tail,p);
+				printf("back , list.size %d > 0 , tail 0x%x , p 0x%x\n",list.size , list.tail,p);
 				list.tail->next = p;
 				list.tail = p;	
 		}
@@ -159,7 +159,7 @@ int dspmgr_delete_dsp(unsigned int dspip)
 				pthread_mutex_lock(&list_lock);
 				if(p->dspip == dspip)
 				{
-						printf("pp %p , p %p , list.head %p , list.tail %p\n",pp , p ,list.head ,list.tail);
+						printf("pp 0x%x , p 0x%x , list.head 0x%x , list.tail 0x%x\n",pp , p ,list.head ,list.tail);
 						(p != list.head) ? (pp->next = p->next) : (list.head = p->next);
 						if(list.tail == p)
 							list.tail = pp;
@@ -287,7 +287,7 @@ static int send_mem(int fd , char * str , struct sockaddr * ppeeraddr , socklen_
 		Sendto(fd , "----------MEM---------- :\n"  , 26 , 0 , ppeeraddr , addrlen);
 		for(i = 0 ; i < DSP_TOTAL ; i++)
 		{
-				sprintf(str , "p : %p , dspip : %p , next : %p \n", &mem[i] , mem[i].dspip , mem[i].next);
+				sprintf(str , "p : 0x%.8x , dspip : 0x%.8x , next : 0x%.8x \n", &mem[i] , mem[i].dspip , mem[i].next);
 				Sendto(fd , str , strlen(str)  , 0 ,ppeeraddr , addrlen);
 		}
 		return 0;
@@ -300,7 +300,7 @@ static int send_mem_list(int fd , char * str ,  struct sockaddr * ppeeraddr , so
 		Sendto(fd , "----------MEM_LIST---------- :\n" , 31 , 0 , ppeeraddr , addrlen);
 		while(NULL != p)
 		{
-				sprintf(str , "p : %p , dspip : %p , next : %p \n", p , p->dspip , p->next);
+				sprintf(str , "p : 0x%.8x , dspip : 0x%.8x , next : 0x%.8x \n", p , p->dspip , p->next);
 				Sendto(fd , str , strlen(str)  , 0 , ppeeraddr , addrlen);
 				p = p->next;
 		}
